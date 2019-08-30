@@ -6,3 +6,10 @@ Check out the following links:
 1. [Hacker Rank](https://www.hackerrank.com/domains/cpp)
 2. [Tutorials Point](https://www.tutorialspoint.com/cplusplus/index.htm)
 3. [Code Academy](https://www.codecademy.com/learn/learn-c-plus-plus)
+
+## About Me
+I am a second year CS student at HSU.
+
+## Tips
+* Change VSC color: ctrl+K -> ctrl+T
+* Live preview of .MD files in VSC: ctrl+SHIFT+V
