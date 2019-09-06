@@ -6,7 +6,7 @@ using namespace std;
 
 unsigned char border_char = 219;
 
-int main(void)
+int main(int argc, char* argv[])
 {
 	WINDOW* main_window = nullptr;
 	int num_rows = 0;
@@ -26,7 +26,8 @@ int main(void)
 	keypad(main_window, TRUE);
 	curs_set(0);
 
-	if (has_colors() == FALSE) {
+	if (has_colors() == FALSE) 
+	{
 		endwin();
 		printf("Your terminal does not support color\n");
 		exit(1);
@@ -34,6 +35,8 @@ int main(void)
 
 	//fun stuff happens here
 	start_color();
+
+	Mouse_status;
 
 	//colors
 	init_pair(1, COLOR_RED, COLOR_WHITE); //red
@@ -45,6 +48,7 @@ int main(void)
 
 	//highlights text
 	wattron(main_window, A_REVERSE);
+	wattron(main_window, A_BLINK);
 
 	//top gui bar
 	//mvaddstr(1, 1, "|  File  |  Edit  |  Options  |  Buffers  |  Tools  |  Help  |");
@@ -146,18 +150,6 @@ int main(void)
 		mvaddch(num_rows - 2, i, ACS_CKBOARD);
 	}
 
-	for (int i = 0; i < num_cols; i++)
-	{
-		//line directly under top gui bar
-		mvaddch(2, i, ACS_HLINE);
-	}
-
-	for (int i = 0; i < num_cols; i++)
-	{
-		//line directly above bottom gui bar
-		mvaddch(num_rows - 4, i, ACS_HLINE);
-	}
-
 	for (int i = 0; i < num_rows; i++)
 	{
 		//left column
@@ -169,6 +161,20 @@ int main(void)
 
 	attroff(COLOR_PAIR(5));
 	wattroff(main_window, A_REVERSE);
+	wattroff(main_window, A_BLINK);
+
+	for (int i = 1; i < num_cols - 1; i++)
+	{
+		//line directly under top gui bar
+		mvaddch(2, i, ACS_HLINE);
+	}
+
+	for (int i = 1; i < num_cols - 1; i++)
+	{
+		//line directly above bottom gui bar
+		mvaddch(num_rows - 4, i, ACS_HLINE);
+	}
+
 	//fun stuff ends here
 
 	//tells curses to draw
