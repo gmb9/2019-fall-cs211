@@ -9,6 +9,8 @@ unsigned char border_char = 219;
 int main(int argc, char* argv[])
 {
 	WINDOW* main_window = nullptr;
+	refresh();
+
 	int num_rows = 0;
 	int num_cols = 0;
 
@@ -34,9 +36,12 @@ int main(int argc, char* argv[])
 	}
 
 	//fun stuff happens here
-	start_color();
 
-	Mouse_status;
+	//Can print any message anywhere
+	//mvwprintw(main_window, 3, 2, "");
+	//wrefresh(main_window);
+
+	start_color();
 
 	//colors
 	init_pair(1, COLOR_RED, COLOR_WHITE); //red
@@ -173,6 +178,13 @@ int main(int argc, char* argv[])
 	{
 		//line directly above bottom gui bar
 		mvaddch(num_rows - 4, i, ACS_HLINE);
+	}
+
+	//Detects when a user pressed F1 (KEY_F(1-9 or 0) for function keys), KEY_UP/DOWN/LEFT/RIGHT, etc
+	int input = wgetch(main_window);
+	if (input == KEY_F(1));
+	{
+		mvaddstr(3, 2, "Success");
 	}
 
 	//fun stuff ends here
