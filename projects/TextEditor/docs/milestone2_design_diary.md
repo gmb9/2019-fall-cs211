@@ -1,0 +1,12 @@
+# Design Diary
+Use this space to talk about your process.  For inspiration, see [my prompts](../../../docs/sample_reflection.md) 
+
+During my time working on the second milestone of our text editor project, I ran into a lot of problems.
+
+I didn't have too much trouble printing the first few lines to my screen from my file, but once I had finished that, it was time to move onto scrolling through lines in my text file that weren't immediately displayed. Initially, I was confused with the concept of scrolling through a text document. My first issue was figuring out how to take a line, remove it, and then add another line that allows a user to continuously read through a given document. After putting around to no real avail, I finally reached out for help and was able to piece together this (admittedly messy) product. It works as intended, but still has some weird issues that I can't seem to figure out.
+
+Firstly and most obviously, my new window, despite my greatest efforts, will not go in the position I want it to. Text is always off from the top corner, and the amount I need to subtract from num_cols/num_rows is seemingly random. There are 7 lines that I do not want affected by my new box: 3 on the top and 4 on the bottom. This makes me think I should subtract 7 from num_rows to leave space for those bars, but if I don't subtract by 8 it will cut off one bar on the top or bottom depending on my Y input for my new box.
+
+I know this isn't supposed to be a bug report for my code, but I feel that that's what my experience has been so far. Trying various solutions and patching them up slowly, only to realize after a while's work that this solution won't work for what I'm trying to do. It's frustrating, but also enlightening. That being said, I feel as though there are great benefits coming from this project. Using Github and working on a sort of abstract, abnormal assignment compared to the usual 'given prompt find solution' problems has been a very interesting experience, and I feel I have and will continue to gain a lot from it.
+
+Currently though, I'm at a crossroad. Do I continue to try and piece together each assignment with a tape and glue method of solving problems, or do I restart and try and iron out everything to make my life easier in future assignments?
