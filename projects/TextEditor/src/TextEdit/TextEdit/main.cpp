@@ -1,6 +1,8 @@
 #define PDC_DLL_BUILD 1
 #include "curses.h"
 #include <string>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -26,7 +28,9 @@ int main(int argc, char* argv[])
 	noecho();
 	//nodelay(main_window, TRUE);
 	keypad(main_window, TRUE);
-	curs_set(0);
+	curs_set(2);
+
+	
 
 	if (has_colors() == FALSE) 
 	{
@@ -180,11 +184,92 @@ int main(int argc, char* argv[])
 		mvaddch(num_rows - 4, i, ACS_HLINE);
 	}
 
-	//Detects when a user pressed F1 (KEY_F(1-9 or 0) for function keys), KEY_UP/DOWN/LEFT/RIGHT, etc
-	int input = wgetch(main_window);
-	if (input == KEY_F(1));
+	//detects when a user pressed F1 (KEY_F(1-9 or 0) for function keys), KEY_UP/DOWN/LEFT/RIGHT, etc and saves that as input
+	keypad(main_window, TRUE);
+	int input = getch();
+	int x_loc = 2;
+	int y_loc = 3;
+	int start = 0;
+	string line;
+	vector<string> v1{};
+
+	//my_str.c_str()
+
+	//outputting file information to window
+	int test = KEY_F(1);
+	while (input != 'q')
 	{
-		mvaddstr(3, 2, "Success");
+		if (input == KEY_F(1))
+		{
+			ifstream myfile;
+			myfile.open("myfile.txt");
+			if (myfile.is_open())
+			{
+				while (myfile.good())
+				{
+					getline(myfile, line);
+					v1.push_back(line);
+				}
+
+				for (int i = start; i < num_rows - 4; i++)
+				{
+					if (y_loc < num_rows - 4)
+					{
+						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						y_loc++;
+					}
+				}
+			}
+			myfile.close();
+		}
+
+		//Scrolls down
+		if (input == KEY_DOWN)
+		{
+			//Makes sure we aren't able to repeat lines past the file size
+			if (start + (num_rows - 6) < v1.size())
+			{
+				start++;
+			}
+			
+			y_loc = 3;
+			for (int i = start; i < num_rows - 4 + start; i++)
+			{
+				if (i < v1.size())
+				{
+					if (y_loc < num_rows - 4)
+					{
+						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						y_loc++;
+					}
+				}
+			}
+			refresh();
+		}
+
+		//Scrolls up
+		if (input == KEY_UP)
+		{
+			if (start + (num_rows - 6) < v1.size())
+			{
+				start--;
+			}
+
+			y_loc = 3;
+			for (int i = start; i < num_rows - 4 + start; i++)
+			{
+				if (i < v1.size())
+				{
+					if (y_loc < num_rows - 4)
+					{
+						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						y_loc++;
+					}
+				}
+			}
+			refresh();
+		}
+		input = getch();
 	}
 
 	//fun stuff ends here
@@ -195,7 +280,7 @@ int main(int argc, char* argv[])
 
 	//revert back to normal console mode
 	nodelay(main_window, TRUE);
-	keypad(main_window, TRUE);
+	
 	mvaddstr(0, 0, "Press any key to continue...");
 	endwin();
 }
