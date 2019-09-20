@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
 	int num_rows = 0;
 	int num_cols = 0;
 
+
+
 	//initialize screen, begin curses mode
 	main_window = initscr();
 
@@ -29,6 +31,9 @@ int main(int argc, char* argv[])
 	//nodelay(main_window, TRUE);
 	keypad(main_window, TRUE);
 	curs_set(2);
+
+	int texty = 3;
+	int textx = 2;
 
 	
 
@@ -184,6 +189,11 @@ int main(int argc, char* argv[])
 		mvaddch(num_rows - 4, i, ACS_HLINE);
 	}
 
+	touchwin(main_window);
+	WINDOW* text_win = derwin(main_window, num_rows - 8, num_cols - 3, 3, 1);
+	touchwin(text_win);
+	wrefresh(text_win);
+
 	//detects when a user pressed F1 (KEY_F(1-9 or 0) for function keys), KEY_UP/DOWN/LEFT/RIGHT, etc and saves that as input
 	keypad(main_window, TRUE);
 	int input = getch();
@@ -199,6 +209,8 @@ int main(int argc, char* argv[])
 	int test = KEY_F(1);
 	while (input != 'q')
 	{
+		wclear(text_win);
+
 		if (input == KEY_F(1))
 		{
 			ifstream myfile;
@@ -215,7 +227,7 @@ int main(int argc, char* argv[])
 				{
 					if (y_loc < num_rows - 4)
 					{
-						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						mvwaddstr(text_win, y_loc, x_loc, v1[i].c_str());
 						y_loc++;
 					}
 				}
@@ -239,7 +251,7 @@ int main(int argc, char* argv[])
 				{
 					if (y_loc < num_rows - 4)
 					{
-						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						mvwaddstr(text_win, y_loc, x_loc, v1[i].c_str());
 						y_loc++;
 					}
 				}
@@ -250,7 +262,7 @@ int main(int argc, char* argv[])
 		//Scrolls up
 		if (input == KEY_UP)
 		{
-			if (start + (num_rows - 6) < v1.size())
+			if (start > 0)
 			{
 				start--;
 			}
@@ -262,15 +274,18 @@ int main(int argc, char* argv[])
 				{
 					if (y_loc < num_rows - 4)
 					{
-						mvwaddstr(main_window, y_loc, x_loc, v1[i].c_str());
+						mvwaddstr(text_win, y_loc, x_loc, v1[i].c_str());
 						y_loc++;
 					}
 				}
 			}
 			refresh();
 		}
+		wrefresh(text_win);
 		input = getch();
 	}
+
+
 
 	//fun stuff ends here
 
