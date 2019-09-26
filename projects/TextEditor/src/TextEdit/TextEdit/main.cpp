@@ -190,15 +190,15 @@ int main(int argc, char* argv[])
 	}
 
 	touchwin(main_window);
-	WINDOW* text_win = derwin(main_window, num_rows - 8, num_cols - 3, 3, 1);
+	WINDOW* text_win = derwin(main_window, num_rows - 7, num_cols - 3, 3, 1);
 	touchwin(text_win);
 	wrefresh(text_win);
 
 	//detects when a user pressed F1 (KEY_F(1-9 or 0) for function keys), KEY_UP/DOWN/LEFT/RIGHT, etc and saves that as input
 	keypad(main_window, TRUE);
 	int input = getch();
-	int x_loc = 2;
-	int y_loc = 3;
+	int x_loc = 0;
+	int y_loc = 0;
 	int start = 0;
 	string line;
 	vector<string> v1{};
@@ -244,7 +244,7 @@ int main(int argc, char* argv[])
 				start++;
 			}
 			
-			y_loc = 3;
+			y_loc = 0;
 			for (int i = start; i < num_rows - 4 + start; i++)
 			{
 				if (i < v1.size())
@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
 				start--;
 			}
 
-			y_loc = 3;
+			y_loc = 0;
 			for (int i = start; i < num_rows - 4 + start; i++)
 			{
 				if (i < v1.size())
