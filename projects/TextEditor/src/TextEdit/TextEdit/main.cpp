@@ -16,8 +16,6 @@ int main(int argc, char* argv[])
 	int num_rows = 0;
 	int num_cols = 0;
 
-
-
 	//initialize screen, begin curses mode
 	main_window = initscr();
 
@@ -31,11 +29,6 @@ int main(int argc, char* argv[])
 	//nodelay(main_window, TRUE);
 	keypad(main_window, TRUE);
 	curs_set(2);
-
-	int texty = 3;
-	int textx = 2;
-
-	
 
 	if (has_colors() == FALSE) 
 	{
@@ -200,6 +193,8 @@ int main(int argc, char* argv[])
 	int x_loc = 0;
 	int y_loc = 0;
 	int start = 0;
+	int textx = 0;
+	int texty = 0;
 	string line;
 	vector<string> v1{};
 
@@ -207,9 +202,9 @@ int main(int argc, char* argv[])
 
 	//outputting file information to window
 	int test = KEY_F(1);
-	while (input != 'q')
+	do 
 	{
-		wclear(text_win);
+		//wclear(text_win);
 
 		if (input == KEY_F(1))
 		{
@@ -238,6 +233,7 @@ int main(int argc, char* argv[])
 		//Scrolls down
 		if (input == KEY_DOWN)
 		{
+			wclear(text_win);
 			//Makes sure we aren't able to repeat lines past the file size
 			if (start + (num_rows - 6) < v1.size())
 			{
@@ -262,6 +258,7 @@ int main(int argc, char* argv[])
 		//Scrolls up
 		if (input == KEY_UP)
 		{
+			wclear(text_win);
 			if (start > 0)
 			{
 				start--;
@@ -281,17 +278,154 @@ int main(int argc, char* argv[])
 			}
 			refresh();
 		}
+
+		if (input == KEY_ENTER)
+		{
+			texty++;
+		}
+		else if (input == 'a')
+		{
+			mvwaddstr(text_win, texty, textx, "a");
+			textx++;
+		}
+		else if (input == 'b')
+		{
+			mvwaddstr(text_win, texty, textx, "b");
+			textx++;
+		}
+		else if (input == 'c')
+		{
+			mvwaddstr(text_win, texty, textx, "c");
+			textx++;
+		}
+		else if (input == 'd')
+		{
+			mvwaddstr(text_win, texty, textx, "d");
+			textx++;
+		}
+		else if (input == 'e')
+		{
+			mvwaddstr(text_win, texty, textx, "e");
+			textx++;
+		}
+		else if (input == 'f')
+		{
+			mvwaddstr(text_win, texty, textx, "f");
+			textx++;
+		}
+		else if (input == 'g')
+		{
+			mvwaddstr(text_win, texty, textx, "g");
+			textx++;
+		}
+		else if (input == 'h')
+		{
+			mvwaddstr(text_win, texty, textx, "h");
+			textx++;
+		}
+		else if (input == 'i')
+		{
+			mvwaddstr(text_win, texty, textx, "i");
+			textx++;
+		}
+		else if (input == 'j')
+		{
+			mvwaddstr(text_win, texty, textx, "j");
+			textx++;
+		}
+		else if (input == 'k')
+		{
+			mvwaddstr(text_win, texty, textx, "k");
+			textx++;
+		}
+		else if (input == 'l')
+		{
+			mvwaddstr(text_win, texty, textx, "l");
+			textx++;
+		}
+		else if (input == 'm')
+		{
+			mvwaddstr(text_win, texty, textx, "m");
+			textx++;
+		}
+		else if (input == 'n')
+		{
+			mvwaddstr(text_win, texty, textx, "n");
+			textx++;
+		}
+		else if (input == 'o')
+		{
+			mvwaddstr(text_win, texty, textx, "o");
+			textx++;
+		}
+		else if (input == 'p')
+		{
+			mvwaddstr(text_win, texty, textx, "p");
+			textx++;
+		}
+		else if (input == 'q')
+		{
+			mvwaddstr(text_win, texty, textx, "q");
+			textx++;
+		}
+		else if (input == 'r')
+		{
+			mvwaddstr(text_win, texty, textx, "r");
+			textx++;
+		}
+		else if (input == 's')
+		{
+			mvwaddstr(text_win, texty, textx, "s");
+			textx++;
+		}
+		else if (input == 't')
+		{
+			mvwaddstr(text_win, texty, textx, "t");
+			textx++;
+		}
+		else if (input == 'u')
+		{
+		mvwaddstr(text_win, texty, textx, "u");
+		textx++;
+		}
+		else if (input == 'v')
+		{
+		mvwaddstr(text_win, texty, textx, "v");
+		textx++;
+		}
+		else if (input == 'w')
+		{
+		mvwaddstr(text_win, texty, textx, "w");
+		textx++;
+		}
+		else if (input == 'x')
+		{
+		mvwaddstr(text_win, texty, textx, "x");
+		textx++;
+		}
+		else if (input == 'y')
+		{
+		mvwaddstr(text_win, texty, textx, "y");
+		textx++;
+		}
+		else if (input == 'z')
+		{
+		mvwaddstr(text_win, texty, textx, "z");
+		textx++;
+		}
+
 		wrefresh(text_win);
 		input = getch();
-	}
+
+	} while ((input != KEY_F(9)));
 
 
 
 	//fun stuff ends here
 
 	//tells curses to draw
-	refresh();
-	char result = getch();
+	//refresh();
+	//char result = getch();
 
 	//revert back to normal console mode
 	nodelay(main_window, TRUE);
